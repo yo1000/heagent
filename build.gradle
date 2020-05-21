@@ -1,0 +1,32 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.yo1000'
+version = '1.0.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'org.eclipse.jetty:jetty-server:9.4.28.v20200408'
+    implementation 'org.eclipse.jetty:jetty-servlet:9.4.28.v20200408'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+}
+
+shadowJar {
+    manifest {
+        attributes "Premain-Class" : "com.yo1000.heagent.HealthCheckAgent"
+    }
+    classifier ""
+}
