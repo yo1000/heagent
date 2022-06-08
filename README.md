@@ -13,9 +13,12 @@
 ## How to Use
 ### Standard launch
 ```bash
+curl -o /agent/jar/file/path/heagent.jar \
+  https://github.com/yo1000/heagent/releases/download/v1.0.0/heagent-1.0.0.jar
+
 java \
--javaagent:/agent/jar/file/path/heagent-1.0.0.jar \
--jar /main/jar/file/path/main.jar
+  -javaagent:/agent/jar/file/path/heagent.jar \
+  -jar /main/jar/file/path/main.jar
 ```
 
 ### Launch with parameters
@@ -35,14 +38,17 @@ The parameters that can be set are as follows.
 * heagent-min-available-heap-ratio
 
 ```bash
+curl -o /agent/jar/file/path/heagent.jar \
+  https://github.com/yo1000/heagent/releases/download/v1.0.0/heagent-1.0.0.jar
+
 export HEAGENT_PATH=/env-var-test
 
 java \
--Dheagent-path=/system-props-test \
--Dheagent-max-used-heap-size=500000000 \
--Dheagent-min-available-heap-ratio=0.2 \
--javaagent:/agent/jar/file/path/heagent-1.0.0.jar=heagentPort=8889,heagentPath=/metrics/health \
--jar /main/jar/file/path/main.jar
+  -Dheagent-path=/system-props-test \
+  -Dheagent-max-used-heap-size=500000000 \
+  -Dheagent-min-available-heap-ratio=0.2 \
+  -javaagent:/agent/jar/file/path/heagent.jar=heagentPort=8889,heagentPath=/metrics/health \
+  -jar /main/jar/file/path/main.jar
 ```
 
 And, Requesting `suspend={1|0}` for an endpoint will force the health check state to switch.
