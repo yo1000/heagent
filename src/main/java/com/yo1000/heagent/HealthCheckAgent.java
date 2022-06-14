@@ -59,7 +59,7 @@ public class HealthCheckAgent {
 
         ScheduledExecutorScheduler scheduledExecutorScheduler = new ScheduledExecutorScheduler("Connector-Scheduler-Daemonized", true);
         ServerConnector connector = new ServerConnector(server, null, scheduledExecutorScheduler, null, -1, -1, new HttpConnectionFactory());
-        connector.setHost(hostname != null ? hostname : "127.0.0.1");
+        connector.setHost(hostname != null ? hostname : "0.0.0.0");
         connector.setPort(port);
         server.setConnectors(new Connector[]{connector});
 
