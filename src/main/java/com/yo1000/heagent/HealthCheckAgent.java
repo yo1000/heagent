@@ -1,8 +1,13 @@
 package com.yo1000.heagent;
 
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
+import org.eclipse.jetty.util.thread.ScheduledExecutorScheduler;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.instrument.Instrumentation;
@@ -47,9 +52,16 @@ public class HealthCheckAgent {
                         })
                         .collect(Collectors.joining("/")));
 
-        Server server = hostname != null && !hostname.equals("0.0.0.0")
-                ? new Server(new InetSocketAddress(hostname, port))
-                : new Server(port);
+
+        QueuedThreadPool queuedThreadPool = new QueuedThreadPool();
+        queuedThreadPool.setDaemon(true);
+        Server server = new Server(queuedThreadPool);
+
+        ScheduledExecutorScheduler scheduledExecutorScheduler = new ScheduledExecutorScheduler("Connector-Scheduler-Daemonized", true);
+        ServerConnector connector = new ServerConnector(server, null, scheduledExecutorScheduler, null, -1, -1, new HttpConnectionFactory());
+        connector.setHost(hostname != null ? hostname : "0.0.0.0");
+        connector.setPort(port);
+        server.setConnectors(new Connector[]{connector});
 
         System.out.println("Building server: " + (hostname != null ? hostname : "127.0.0.1") + ":" + port + path);
 
