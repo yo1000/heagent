@@ -68,7 +68,7 @@ public class HealthCheckServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
         }
 
-        response.setContentType("application/json; charset=utf-8");
+        response.setContentType("application/json");
         response.getWriter().println(new ObjectMapper().writeValueAsString(metrics));
     }
 
