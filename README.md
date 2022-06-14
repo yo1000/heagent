@@ -14,7 +14,7 @@
 ### Standard launch
 ```bash
 curl -o /agent/jar/file/path/heagent.jar \
-  https://github.com/yo1000/heagent/releases/download/v1.0.0/heagent-1.0.0.jar
+  https://github.com/yo1000/heagent/releases/download/v1.0.1/heagent-1.0.1.jar
 
 java \
   -javaagent:/agent/jar/file/path/heagent.jar \
@@ -39,7 +39,7 @@ The parameters that can be set are as follows.
 
 ```bash
 curl -o /agent/jar/file/path/heagent.jar \
-  https://github.com/yo1000/heagent/releases/download/v1.0.0/heagent-1.0.0.jar
+  https://github.com/yo1000/heagent/releases/download/v1.0.1/heagent-1.0.1.jar
 
 export HEAGENT_PATH=/env-var-test
 
